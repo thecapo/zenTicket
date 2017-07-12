@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  requester_id: 1
+  assignee_id: 1
+  subject: MyString
+  description: MyText
+  tags: MyText
+
+two:
+  requester_id: 1
+  assignee_id: 1
+  subject: MyString
+  description: MyText
+  tags: MyText
