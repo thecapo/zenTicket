@@ -1,10 +1,10 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  #before_action :set_ticket, only: [:show, :edit, :update, :destroy]
 
   # GET /tickets
   # GET /tickets.json
   def index
-    auth = {username: "the7thcapo@gmail.com", password: "boangkaayoka"}
+    auth = {username: "the7thcapo@gmail.com", password: "1boangkaayoka1"}
     response = HTTParty.get('https://caw.zendesk.com/api/v2/tickets.json', basic_auth: auth,
     :headers =>{'Content-Type' => 'application/json'} )
 
@@ -14,6 +14,17 @@ class TicketsController < ApplicationController
   # GET /tickets/1
   # GET /tickets/1.json
   def show
+    auth = {username: "the7thcapo@gmail.com", password: "1boangkaayoka1"}
+    response = HTTParty.get('https://caw.zendesk.com/api/v2/tickets/', basic_auth: auth,
+    :headers =>{'Content-Type' => 'application/json'} )
+
+    @showTicket = response.parsed_response["tickets"].second
+    
+    userResponse = HTTParty.get('https://caw.zendesk.com/api/v2/users/', basic_auth: auth,
+    :headers =>{'Content-Type' => 'application/json'} )
+
+    @requester = userResponse.parsed_response["users"].second
+
   end
 
   # GET /tickets/new
@@ -68,7 +79,7 @@ class TicketsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
-      @ticket = Ticket.find(params[:id])
+      @ticket = @tickets.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
