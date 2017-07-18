@@ -12,14 +12,4 @@
 
 ActiveRecord::Schema.define(version: 20170711125539) do
 
-  create_table "tickets", force: :cascade do |t|
-    t.integer "requester_id"
-    t.integer "assignee_id"
-    t.string "subject"
-    t.text "description"
-    t.text "tags"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
 end

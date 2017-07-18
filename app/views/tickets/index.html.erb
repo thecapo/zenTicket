@@ -9,15 +9,12 @@
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @tickets.each do |ticket| %>
       <tr>
         <td><%= ticket["subject"] %></td>
         <td><%= link_to "Show", ticket_path(ticket["id"]) %></td>
-
       </tr>
-
     <% end %>
     <tr><%= will_paginate @tickets %></tr>
   </tbody>
