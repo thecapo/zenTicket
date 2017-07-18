@@ -1,89 +1,45 @@
 class TicketsController < ApplicationController
-  #before_action :set_ticket, only: [:show, :edit, :update, :destroy]
+  before_action :set_ticket, only: [:index, :show]
 
-  # GET /tickets
-  # GET /tickets.json
+  require 'will_paginate/array'
+  
   def index
-    auth = {username: "the7thcapo@gmail.com", password: "1boangkaayoka1"}
-    response = HTTParty.get('https://caw.zendesk.com/api/v2/tickets.json', basic_auth: auth,
-    :headers =>{'Content-Type' => 'application/json'} )
 
+    #auth = {username: "the7thcapo@gmail.com", password: "123password123"}
+    response = HTTParty.get('https://caw.zendesk.com/api/v2/tickets', basic_auth: set_ticket, :headers => {'Content-Type' => 'application/json'} )
     @tickets = response.parsed_response["tickets"]
+    @tickets = @tickets.paginate(:page => params[:page], :per_page => 25)
+
   end
 
-  # GET /tickets/1
-  # GET /tickets/1.json
   def show
-    auth = {username: "the7thcapo@gmail.com", password: "1boangkaayoka1"}
-    response = HTTParty.get('https://caw.zendesk.com/api/v2/tickets/', basic_auth: auth,
-    :headers =>{'Content-Type' => 'application/json'} )
+  
+    @urlTicket = "https://caw.zendesk.com/api/v2/tickets/#{(params[:id])}" 
+    #@auth = {username: "the7thcapo@gmail.com", password: "123password123"}
+    @response = HTTParty.get(@urlTicket, basic_auth: set_ticket, :headers => {'Content-Type' => 'application/json'} )
+    @showTicket = @response.parsed_response["ticket"]
 
-    @showTicket = response.parsed_response["tickets"].second
-    
-    userResponse = HTTParty.get('https://caw.zendesk.com/api/v2/users/', basic_auth: auth,
-    :headers =>{'Content-Type' => 'application/json'} )
+  if @showTicket.nil?
+    render file: "#{Rails.root}/public/404.html" , status: :not_found  
+  else
+    @showTicket
+  end 
 
-    @requester = userResponse.parsed_response["users"].second
+  end 
 
+#
+def catch_404
+
+raise ActionController::RoutingError.new(params[:path])
+end
+#
+
+
+private
+
+  def set_ticket
+    auth = {username: "the7thcapo@gmail.com", password: "123password123"}
   end
 
-  # GET /tickets/new
-  def new
-    @ticket = Ticket.new
-  end
 
-  # GET /tickets/1/edit
-  def edit
-  end
-
-  # POST /tickets
-  # POST /tickets.json
-  def create
-    @ticket = Ticket.new(ticket_params)
-
-    respond_to do |format|
-      if @ticket.save
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully created.' }
-        format.json { render :show, status: :created, location: @ticket }
-      else
-        format.html { render :new }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /tickets/1
-  # PATCH/PUT /tickets/1.json
-  def update
-    respond_to do |format|
-      if @ticket.update(ticket_params)
-        format.html { redirect_to @ticket, notice: 'Ticket was successfully updated.' }
-        format.json { render :show, status: :ok, location: @ticket }
-      else
-        format.html { render :edit }
-        format.json { render json: @ticket.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /tickets/1
-  # DELETE /tickets/1.json
-  def destroy
-    @ticket.destroy
-    respond_to do |format|
-      format.html { redirect_to tickets_url, notice: 'Ticket was successfully destroyed.' }
-      format.json { head :no_content }
-    end
-  end
-
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_ticket
-      @ticket = @tickets.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def ticket_params
-      params.require(:ticket).permit(:requester_id, :assignee_id, :subject, :description, :tags)
-    end
 end

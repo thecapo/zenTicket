@@ -11,15 +11,18 @@
   </thead>
 
   <tbody>
-    <%= @tickets.each do |ticket| %>
+    <% @tickets.each do |ticket| %>
       <tr>
         <td><%= ticket["subject"] %></td>
-        <td><%= link_to "Show", "#" %></td>
+        <td><%= link_to "Show", ticket_path(ticket["id"]) %></td>
+
       </tr>
+
     <% end %>
+    <tr><%= will_paginate @tickets %></tr>
   </tbody>
 </table>
 
 <br>
 
-<%= link_to 'New Ticket', new_ticket_path %>
+

@@ -3,20 +3,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Subject:</strong>
-  <%= @showTicket["subject"] %>
+  <strong>Ticket ID:</strong>
+  <%= @showTicket["id"] %>
 </p>
 
 <p>
-  <strong>Requester:</strong>
-  <%= @requester["name"] %>
+  <strong>Subject:</strong>
+  <%= @showTicket["subject"] %>
 </p>
 
 <p>
   <strong>Description:</strong>
   <%= @showTicket["description"] %>
 </p>
-
 
 
 <%= link_to 'Back', tickets_path %>

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
-  resources :tickets
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	resources :tickets  
+	root 'tickets#index'
+  	match "*path", to: "tickets#catch_404", via: :all
+  	
 end
