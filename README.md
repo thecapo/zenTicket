@@ -18,8 +18,8 @@ This Ticket Viewer was built using
 
 ## Installation 
 
-	1. Download file in github **https://github.com/thecapo/zenTicket**, extract the file
-	2. Run **bundle install** on your terminal
+	1. Download file in github https://github.com/thecapo/zenTicket, extract the file
+	2. Run bundle install on your terminal
 
 ## How to use
 
