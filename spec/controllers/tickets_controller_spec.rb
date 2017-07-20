@@ -16,7 +16,7 @@ RSpec.describe TicketsController, type: :controller do
 			response = HTTParty.get(@urlTicket, basic_auth: @auth, :headers => {'Content-Type' => 'application/json'} )
 			expect(response.respond_to?(:parsed_response)).to be_truthy
 		end
-		#@urlTicket did not specify the id of the ticket
+		
 		it "should tell that a ticket does not exist" do
 			response = HTTParty.get(@urlTicket, basic_auth: @auth, :headers => {'Content-Type' => 'application/json'} )
 			@showTicket = response.parsed_response["ticket"]

@@ -18,13 +18,13 @@ This Ticket Viewer was built using
 
 ## Installation 
 
-	1. Download file in github https://github.com/thecapo/zenTicket, extract the file
-	2. Run bundle install on your terminal
+	1. Download file at github https://github.com/thecapo/zenTicket, extract the file
+	2. Run bundle install in your terminal
 
 ## How to use
 
 	1. Open browser of choice, safari was used to build this app
-	2. Type localhost:3000 or localhost:3000/tickets NOTE: must first login to my account through the website (caw.zendesk.com)
+	2. Type localhost:3000 or localhost:3000/tickets to list all tickets
 	3. Click show to see details of specific Ticket
 	4. Or you can type localhost:3000/tickets/{id} where inside {id} should be a ticket number
 	5. Once inside a specific ticket you can click the back link to go back to the list of tickets or back button of your chosen browser

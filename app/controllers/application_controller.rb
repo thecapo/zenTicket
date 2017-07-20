@@ -6,4 +6,9 @@ class ApplicationController < ActionController::Base
 		render file: "#{Rails.root}/public/404.html" , status: :not_found  
 	end
 
+	rescue_from ActionController::UnknownFormat do |exception|
+		logger.error 'Unknown Format'
+		render file: "#{Rails.root}/public/422.html" , status: :not_found  
+	end
+
 end
